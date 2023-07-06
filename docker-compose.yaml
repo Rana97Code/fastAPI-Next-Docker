@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: ./FastSMS
+      dockerfile: Dockerfile
+    # entrypoint: ["sh", "/usr/src/chat-app/entrypoint.sh"] # new
+    volumes:
+      - "./FastSMS:/FastSMS"
+    ports:
+      - 8000:8000
+    # environment:
+    #   - FLASK_ENV=development
+    #   - APP_SETTINGS=app.config.DevelopmentConfig
+    #   - DATABASE_URL=postgresql://postgres:postgres@db:5432/app_dev
+    #   - SECRET_KEY=secret
+    depends_on:
+      - db
+
+
+  frontend:
+    build:
+      context: ./NextAPP
+      dockerfile: Dockerfile
+    volumes:
+      - "./NextAPP:/app"
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    # environment:
+    #   - NODE_ENV=development
+    #   - REACT_APP_BACKEND_SERVICE_URL=http://localhost:5004
+    #   - REACT_APP_WEBSOCKET_SERVICE_URL=http://localhost:5001
+    depends_on:
+      - backend
+
+  db:
+    image: mysql:8.0.21
+    command: --default-authentication-plugin=caching_sha2_password
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      # - ./db:/docker-entrypoint-initdb.d/:ro
+      - mydatabase:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8077:80
+    environment:
+      #- PMA_ARBITRARY=1
+      - PMA_HOST=db
+    depends_on:
+      - db
+
+volumes:
+  mydatabase:
+    driver: local
