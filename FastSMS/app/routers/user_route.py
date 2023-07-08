@@ -8,10 +8,10 @@ from sqlalchemy.orm import Session
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import passlib.hash as _hash
-import email_validator as validate_email
+# import email_validator as validate_email
 # import jwt as jwt,JWTError
 import bcrypt
-from jose import JWTError , jwt
+from jose import JWTError,jwt
 
 #make a secretkey it's optional
 SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
@@ -132,6 +132,8 @@ def generate_token(form_data: OAuth2PasswordRequestForm= Depends(),  db:Session=
     access_token_expires = timedelta(minutes=5)
     access_token = create_token( data={"email": user.user_email}, expires_delta=access_token_expires )
     return {"access_token": access_token, "token_type": "bearer", "user_email": user.user_email}
+
+
 
 @user_router.post("/signin")
 def generate_token(signin_request: SigninRequest,  db:Session=Depends(get_db)):

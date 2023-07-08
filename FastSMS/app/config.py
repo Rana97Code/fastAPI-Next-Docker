@@ -4,7 +4,8 @@ from sqlalchemy.orm import sessionmaker
 
 metadata = MetaData()
 
-SQLALCHEMY_DATABASE_URL = "mysql://root@localhost/fastapi"
+# SQLALCHEMY_DATABASE_URL = "mysql://root@localhost/fastapi"
+SQLALCHEMY_DATABASE_URL = "mysql+mysqldb://root:root@db:3306/fastapi"
 #Database connection
 engine=create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

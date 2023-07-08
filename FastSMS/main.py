@@ -1,7 +1,7 @@
 from sqlalchemy import Column,String,Integer,Boolean
 from fastapi import FastAPI,Query,Depends
 from fastapi.middleware.cors import CORSMiddleware
-from app.config import engine, Base, SessionLocal
+from app.config import engine, Base
 
 #import routers
 from app.routers.user_route import user_router
@@ -42,7 +42,6 @@ def start_application():
     allow_headers=["*"],
     )
     return app
-
 
 
 app = start_application()
