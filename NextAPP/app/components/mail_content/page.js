@@ -42,7 +42,7 @@ const getMail = async () => {
             <div className=" place-self-end ">
              <button className="bg-green-400 font-medium  px-7 py-2 rounded-md ml-220
                 text-white transition hover:bg-green-500" type="submit" >
-                  <Link href="http://localhost:3000/components/mail_content/add" >Add New Content</Link>
+                  <Link href="http://localhost:3000/components/mail_content/add" prefetch={true}>Add New Content</Link>
             </button>
           </div>
           </div>

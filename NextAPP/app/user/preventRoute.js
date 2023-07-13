@@ -1,25 +1,29 @@
-"use client";
-import React, { useState,useEffect }  from "react";
-import { useRouter } from 'next/navigation';
+'use client'
+import React, { useState,useEffect }  from "react"
+import { useRouter } from 'next/navigation'
+import Welcome from '../components/dashboard/page';
 
-
-const PrivateRoute=()=>{
+const PrivateRoute =()=>{
 
     const router = useRouter();
 
     useEffect(() => {
-        // localStorage.getItem('user_email')
         const user = sessionStorage.getItem('user_email')
-        if(user){
-          router.push("../components/dashboard")
-        }
-        else{
+        if(!user){
+          // router.push("../components/dashboard")
           router.push("./user/login")
         }
+        // else{
+        //   router.push("./user/login")
+        // }
       }, [])
     
     
-    return  useEffect;
+    return  (
+      <>
+        <Welcome />
+      </>
+    );
 }
 
 export default PrivateRoute;

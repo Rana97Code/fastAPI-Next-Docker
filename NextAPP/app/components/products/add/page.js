@@ -2,6 +2,11 @@
 import React, { useState,useEffect }  from "react";
 import { useRouter } from 'next/navigation';
 import DashLayout from "../../dashboard/Dashlayout";
+import products from "/public/img/products.jpg";
+import Image from "next/image";
+import Link from "next/link";
+import { Box, Button, Select,InputLabel, MenuItem ,FormControl, FormLabel, Input, TextField  } from '@mui/material';
+
 
 export default function Addproduct() {
 
@@ -9,7 +14,7 @@ export default function Addproduct() {
   const [product_sku,setSku]=useState("");
   const [unit_id,setUnit]=useState("");
   const [product_qty,setQty]=useState("");
-  const [product_details,setDetails]=useState("");
+  const [product_details,setDetail]=useState("");
  
   const [Units, useUnit]= useState([]); //([]) array for dropdown all data list 
 
@@ -80,9 +85,9 @@ const onSubmit = async (e)=>{
     if(result.ok){
         const data = await result.json();
         // alert("Add Successfully")
-        router.push('/')
+        router.push('/components/products')
       }else{
-        router.push('/add')
+        router.push('/components/products/add')
       }
   
 }
@@ -90,56 +95,59 @@ const onSubmit = async (e)=>{
 
   return (
 
-    <DashLayout>
 
-        <div className="mt-10">
-          <form className="flex flex-col items-center space-y-3" method="post">
-              <div className="relative pb-3">
-                <label>Product Name</label>
-                <input className="border boder-gray-300 outline-none placeholder-gray-400 pl-16 px-2 py-3 
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={product_name} onChange={(e)=>setName(e.target.value)}
-                 placeholder="Product Name" type="text"
-                />
-              </div>
-              <div className="relative pb-3">
-              <label>Product SKU</label>
-                <input className="border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-3 py-3 
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={product_sku} onChange={(e)=>setSku(e.target.value)}
-                 placeholder="Product SKU" type="text"
-                />
-              </div>
-              <div className="relative pb-3">
-              <label>Unit Name</label>
-                <select className="border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-3 py-3 rounded-md transition focus:ring-2
-                 focus:ring-green-400 text-black" value={unit_id} onChange={(e)=>setUnit(e.target.value)}>
-                    <option value="" disabled selected>Select Unit</option>
-                  {Units.map(unit => (
-                    <option className="text-black" key={unit.value} value={unit.id}>{unit.unit_name}</option>
-                  )) }
-                </select>
+<DashLayout>
 
-              </div>
-              <div className="relative pb-3">
-              <label>Product Quantity</label>
-                <input className="border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-3 py-3 
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={product_qty} onChange={(e)=>setQty(e.target.value)}
-                  placeholder="Product Quantity." type="text"
-                />
-              </div>
-              <div className="relative pb-3">
-              <label>Product Details</label>
-                <input className="border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-3 py-3 
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={product_details} onChange={(e)=>setDetails(e.target.value)}
-                  placeholder="Product Details." type="text"
-                />
-              </div>
-              <button className="bg-green-400 font-medium inline-flex items-center px-7 py-2 rounded-md
-               text-white transition hover:bg-green-500" type="submit" onClick={onSubmit}>
-                Submit
-              </button>
-           </form>
-         </div>
+<Box>
 
-    </DashLayout>
+<div className='bg-gradient-to-r items-start from-cyan-400 via-blue-50 to-blue-400 block h-screen justify-center p-1 pt-10 md:flex'>
+  {/* login card */}
+  <div className=" bg-cover bg-image flex flex-col  items-center max-w-screen-lg overflow-hidden rounded-lg shadow-lg text-gray-600 w-full md:flex-row font-sans">
+
+    <Image 
+        priority={true}
+        src={products}
+        alt="login"
+        width={550}
+        height={400}
+    />
+
+    {/* Form */}
+    <div className="h-full from-green-300 flex flex-col items-center p-8 w-full md:w-1/2">
+      {/* Welcome */}
+      <div className="flex flex-col items-center space-y-2 pb-0 ">
+        <h1 className="font-medium text-green-400 text-3xl ">Add New products</h1>
+        <p className=" text-lg pb-8"> products Details </p>
+      </div>
+
+    <div className="mt-10">
+      <form className="flex flex-col items-center space-y-3" method="post">
+
+        <TextField id="outlined-basic" label="Product Name" variant="outlined" onChange={(e)=>setName(e.target.value)} />
+        <TextField id="outlined-basic" label="Product SKU" variant="outlined" onChange={(e)=>setSku(e.target.value)} />
+        <FormControl fullWidth>
+        <InputLabel id="select">Unit Name</InputLabel>
+        <Select labelId="select" id="demo-simple-select-standard" label="Unit Name" onChange={(e)=>setUnit(e.target.value)} >
+            <MenuItem value=""> <em>None</em> </MenuItem>
+            {Units.map(unit => (
+             <MenuItem key={unit.value} value={unit.id}>{unit.unit_name}</MenuItem>
+             )) }
+        </Select>
+        </FormControl>
+        <TextField id="outlined-basic" label="Product Quantity" variant="outlined" onChange={(e)=>setQty(e.target.value)} />
+        <TextField id="outlined-basic" label="Product Details" variant="outlined" onChange={(e)=>setDetail(e.target.value)} />
+
+        <Button variant="outlined" type="submit" onClick={onSubmit}>Submit</Button>
+
+        <Link  className="text-green-400" href="http://localhost:3000/components/products" prefetch={true}>Back To List</Link>
+     </form>
+    
+    </div>
+    </div>
+    </div>
+    </div>
+    </Box>
+
+</DashLayout>
   );
 }

@@ -45,7 +45,7 @@ const getCustomer = async () => {
             <div className=" place-self-end ">
             <button className="bg-green-400 font-medium  px-7 py-2 rounded-md ml-220
                 text-white transition hover:bg-green-500" type="submit" >
-                    <Link href="http://localhost:3000/components/customers/add" >Add Customer</Link>
+                    <Link href="http://localhost:3000/components/customers/add" prefetch={true}>Add Customer</Link>
             </button>
             </div>
           </div>

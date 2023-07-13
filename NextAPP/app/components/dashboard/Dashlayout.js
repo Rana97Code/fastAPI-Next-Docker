@@ -1,21 +1,18 @@
-"use client";
-import Head from 'next/head';
+'use client'
 import Sidebar from './Sidebar';
 import Header from './Header';
 
 export default function DashLayout({ children }) {
   return (
-
+    <>
     <div className="flex h-screen " >
       <Sidebar />
-      <div className="w-screen bg-gray-300">
-        <div>
+      <div className="overflow-hidden w-screen bg-gray-300">
         <Header />
         <main>{ children }</main>
-        </div>
         
       </div>
     </div>
-
+    </>
   )
 }

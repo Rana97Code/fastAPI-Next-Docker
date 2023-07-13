@@ -1,7 +1,7 @@
 "use client";
 import { useState,useEffect } from "react";
 import Image from "next/image";
-import user from "../../../public/img/1.png";
+import user from "/public/img/1.jpg";
 import { FiChevronDown, FiChevronRight, FiSearch } from 'react-icons/fi';
 import { FaUserAlt, FaRegCreditCard, FaCog, FaPowerOff } from "react-icons/fa";
 import { RiNotification2Line } from "react-icons/ri";
@@ -25,7 +25,7 @@ const Header = () => {
     const auth= JSON.parse(sessionStorage.getItem('user_email'));
     setProfile(auth)
     if(!auth){
-        router.push("/user/sign_in")
+        router.push("/user/login")
     }
 
     
@@ -65,10 +65,15 @@ const Header = () => {
                     className="flex items-center space-x-1 px-3 py-1 "
                     onClick={toggleDropdown} >
 
-                    <Image
-                        src={user} className='rounded-full'
-                        alt="user" width="50" height="50">
-                    </Image>
+                    <Image 
+                        priority={true}
+                        src={user} 
+                        className='rounded-full'
+                        alt="user"
+                        width={50} 
+                         height={50}
+                    />
+                    
 
                     {isOpen ? (
                         <FiChevronRight className="h-4 w-4" />

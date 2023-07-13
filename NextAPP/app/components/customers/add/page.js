@@ -3,7 +3,11 @@
 import React, { useState,useEffect }  from "react";
 import { useRouter } from 'next/navigation';
 import DashLayout from "../../dashboard/Dashlayout";
+import customers from "/public/img/customers.jpg";
+import Image from "next/image";
 import Link from "next/link";
+import { Box, Button, FormLabel, Input, TextField  } from '@mui/material';
+
 
 export default function Addcustomer() {
 
@@ -62,9 +66,9 @@ const onSubmit = async (e)=>{
     if(result.ok){
       const data = await result.json();
       // alert("Add Successfully")
-      router.push('/customers/page')
+      router.push('/components/customers')
     }else{
-      router.push('/customers/customer_add')
+      router.push('/components/customers/add')
     }
 }
 
@@ -72,49 +76,48 @@ const onSubmit = async (e)=>{
 
   return (
     <DashLayout>
+
+      <Box>
+
+      <div className='bg-gradient-to-r items-start from-cyan-400 via-blue-50 to-blue-400 block h-screen justify-center p-1 pt-10 md:flex'>
+        {/* login card */}
+        <div className=" bg-cover bg-image flex flex-col  items-center max-w-screen-lg overflow-hidden rounded-lg shadow-lg text-gray-600 w-full md:flex-row font-sans">
+
+          <Image 
+              priority={true}
+              src={customers}
+              alt="login"
+              width={550}
+              height={400}
+          />
+
+          {/* Form */}
+          <div className="h-full from-green-300 flex flex-col items-center p-8 w-full md:w-1/2">
+            {/* Welcome */}
+            <div className="flex flex-col items-center space-y-2 pb-0 ">
+              <h1 className="font-medium text-green-400 text-3xl ">Add New Customer</h1>
+              <p className=" text-lg pb-8"> Customers Details </p>
+            </div>
+
           <div className="mt-10">
             <form className="flex flex-col items-center space-y-3" method="post">
-              <div className="relative pb-3">
-                <level>Customer Name</level>
-                <input className="border boder-gray-300 outline-none placeholder-gray-400 pl-16 px-2 py-3 ml-5
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={customer_name} onChange={(e)=>setEmail(e.target.value)}
-                 placeholder="Customer Name" type="text"
-                />
-              </div>
 
-              <div className="relative pb-3">
-                <level>Customer Email</level>
-                <input className="border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-3 py-3 ml-5
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={customer_email} onChange={(e)=>setPass(e.target.value)}
-                 placeholder="example@email.com" type="email"
-                />
-              </div>
+              <TextField id="outlined-basic" label="Customer Name" variant="outlined" onChange={(e)=>setName(e.target.value)} />
+              <TextField id="outlined-basic" label="Customer Email" variant="outlined" onChange={(e)=>setEmail(e.target.value)} />
+              <TextField id="outlined-basic" label="Customer Phone" variant="outlined" onChange={(e)=>setPhone(e.target.value)} />
+              <TextField id="outlined-basic" label="Customer Address" variant="outlined" onChange={(e)=>setPass(e.target.value)} />
+              <Button variant="outlined" type="submit" onClick={onSubmit}>Submit</Button>
 
-              <div className="relative pb-3">
-                <level>Customer Phone</level>
-
-                <input className="border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-3 py-3 ml-5
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={customer_phone} onChange={(e)=>setPass(e.target.value)}
-                  placeholder="Phone Number" type="text"
-                />
-              </div>
-
-              <div className="relative pb-3">
-                <level>Customer Address</level>
-                <input className="border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-3 py-3 ml-5
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={customer_address} onChange={(e)=>setPass(e.target.value)}
-                  placeholder="Address" type="text"
-                />
-              </div>
-
-              <button className="bg-green-400 font-medium inline-flex items-center px-7 py-2 rounded-md
-               text-white transition hover:bg-green-500" type="submit" onClick={onSubmit}>
-                Submit
-              </button>
-              <Link href="http://localhost:3000/components/customers">Back To List</Link>
+   
+              <Link className="text-green-400" href="http://localhost:3000/components/customers" prefetch={true}>Back To List</Link>
 
            </form>
           </div>
+          </div>
+          </div>
+          </div>
+          </Box>
+
     </DashLayout>
  );
 }

@@ -1,28 +1,20 @@
 "use client";
-import Head from 'next/head';
-import Sidebar from './Sidebar';
-import Header from './Header';
+import React from 'react';
+
 import Container from './Container';
-import DashLayout from './Dashlayout'
+import DashLayout from './Dashlayout';
 
-export default function Home() {
-  return (
+// class Welcome extends React.Component {
+  export default function Welcome(){
+  // render() {
 
-    // <div className="flex w-screen h-screen" >
-    //   <Sidebar />
-    //   <main className="w-screen bg-gray-300">
-    //     <div>
-    //     <Header />
-    //     <Container />
-        
-    //     </div>
-        
-    //   </main>
-    // </div>
-
-    <DashLayout>
-        <Container />
-    </DashLayout>
-
-  )
+    return(
+    <>
+      <DashLayout>
+          <Container />
+      </DashLayout>
+    </>
+    )
+  // }
 }
+// export default Welcome;

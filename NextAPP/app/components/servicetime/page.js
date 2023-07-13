@@ -40,12 +40,12 @@ const getStime = async () => {
             <div className=" place-self-end ">
             <button className="bg-green-400 font-medium  px-7 py-2 rounded-md ml-220
                 text-white transition hover:bg-green-500" type="submit" >
-                  <Link href="http://localhost:3000/components/servicetime/add" >Add Service Time</Link>
+                  <Link href="http://localhost:3000/components/servicetime/add" prefetch={true}>Add Service Time</Link>
             </button>
 
           </div>
           </div>
-          <div width="100%"  minHeight="785px"  >
+          <div >
                 <MUIDataTable title={"Service Time List"}  data={data} columns={columns} options={options}/> 
           </div>
         </div>

@@ -10,21 +10,9 @@ import Link from 'next/link'
 
 
 const Sidebar = () => {
-    const [isExpanded, setIsExpanded] = useState(false);
-
-    const handleMouseEnter = () => {
-        setIsExpanded(true);
-    };
-
-    const handleMouseLeave = () => {
-        setIsExpanded(false);
-    };
 
     return (
-        <div className={`h-screen bg-blue-300 p-3 ${isExpanded ? 'w-56' : 'w-20'
-            }`}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+        <div className={`h-screen bg-blue-300 p-3`}       
         >
             {/* Main menu start */}
             <aside className='overflow-hidden'>
@@ -39,7 +27,7 @@ const Sidebar = () => {
                             <li className='w-48 font-medium group-hover:w-full cursor-pointer '>
                                 <div className="flex m-2 px-3 py-3 gap-4 text-gray-700  space-x-4 0 hover:bg-gray-200 hover:text-gray-900 rounded  ">
                                     <RxDashboard className="text-black translate-y-1" />
-                                    <Link href="http://localhost:3000/components/dashboard">
+                                    <Link href="http://localhost:3000/components/dashboard" prefetch={true}>
                                     <p className="block  text-black-600 ">
                                         Dashboard
                                      </p>
@@ -50,7 +38,7 @@ const Sidebar = () => {
                             <li className='w-48'>
                                 <div className="flex m-2 px-3 py-3 gap-4 text-gray-700  space-x-4 0 hover:bg-gray-200 hover:text-gray-900 cursor-pointer rounded  ">
                                     <TbClearAll className="text-black translate-y-1" />
-                                    <Link href="http://localhost:3000/components/customers">
+                                    <Link href="http://localhost:3000/components/customers" prefetch={true}>
                                     <p className="block  text-black-600 ">
                                      Customers
                                     </p>
@@ -62,7 +50,7 @@ const Sidebar = () => {
                             <li className='w-48'>
                                 <div className="flex m-2 px-3 py-3 gap-4 text-gray-700  space-x-4 0 hover:bg-gray-200 hover:text-gray-900 cursor-pointer rounded  ">
                                     <HiOutlineArrowUpTray className="text-black translate-y-1" />
-                                    <Link href="http://localhost:3000/components/units">
+                                    <Link href="http://localhost:3000/components/units" prefetch={true}>
                                     <p className="block  text-black-600 ">
                                     Units
                                     </p>
@@ -74,7 +62,7 @@ const Sidebar = () => {
                             <li className='w-48'>
                                 <div className="flex m-2 px-3 py-3 gap-4 text-gray-700  space-x-4 0 hover:bg-gray-200 hover:text-gray-900 cursor-pointer rounded  ">
                                     <HiOutlineArrowDownTray className="text-black translate-y-1" />
-                                    <Link href="http://localhost:3000/components/products">
+                                    <Link href="http://localhost:3000/components/products" prefetch={true}>
                                     <p className="block  text-black-600 ">
                                          Products
                                     </p>
@@ -86,7 +74,7 @@ const Sidebar = () => {
                             <li className='w-48'>
                                 <div className="flex m-2 px-3 py-3 gap-4 text-gray-700  space-x-4 0 hover:bg-gray-200 hover:text-gray-900 cursor-pointer rounded  ">
                                     <MdSyncAlt className="text-black translate-y-1" />
-                                    <Link href="http://localhost:3000/components/mail_content">
+                                    <Link href="http://localhost:3000/components/mail_content" prefetch={true}>
                                     <p className="block  text-black-600 ">
                                     Email Content
                                     </p>
@@ -98,7 +86,7 @@ const Sidebar = () => {
                             <li className='w-48'>
                                 <div className="flex m-2 px-3 py-3 gap-4 text-gray-700  space-x-4 0 hover:bg-gray-200 hover:text-gray-900 cursor-pointer rounded  ">
                                     <FiLock className="text-black translate-y-1" />
-                                    <Link href="http://localhost:3000/components/servicetime">
+                                    <Link href="http://localhost:3000/components/servicetime" prefetch={true}>
                                     <p className="block  text-black-600 ">
                                     Service Time
                                     </p>
@@ -110,7 +98,7 @@ const Sidebar = () => {
                             <li className='w-48'>
                                 <div className="flex m-2 px-3 py-3 gap-4 text-gray-700  space-x-4 0 hover:bg-gray-200 hover:text-gray-900 cursor-pointer rounded  ">
                                     <TbLeaf className="text-black translate-y-1" />
-                                    <Link href="http://localhost:3000/components/provided_service">
+                                    <Link href="http://localhost:3000/components/provided_service" prefetch={true}>
                                     <p className="block  text-black-600 ">
                                     Provided Services
                                     </p>

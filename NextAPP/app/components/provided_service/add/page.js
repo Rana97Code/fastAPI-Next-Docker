@@ -2,7 +2,12 @@
 import React, { useState,useEffect }  from "react";
 import { useRouter } from 'next/navigation';
 import DashLayout from "../../dashboard/Dashlayout";
+import servicetime from "/public/img/time.jpg";
+import Image from "next/image";
 import Link from "next/link";
+import { Box, Button, Select,InputLabel, MenuItem ,FormControl, FormLabel, Input, TextField  } from '@mui/material';
+
+
 
 export default function AddServicetime() {
 
@@ -14,6 +19,7 @@ export default function AddServicetime() {
  
   const [Product, setProduct]= useState([]); 
   const [Customer, setCustomer]= useState([]); 
+  const [Servicet, setServicTime]= useState([]); 
 
   const [formData, setData] = React.useState({});
   const [errors, setErrors] = React.useState({});
@@ -62,6 +68,15 @@ const getDetails = async (e)=>{
   setCustomer(res)
   // console.warn(res)
   }
+
+  const servtime = await fetch(process.env.NEXT_PUBLIC_API_URL + `/servicetime`);
+  
+  if (!servtime.ok){
+    throw new Error('Could not data exist');
+  }
+  let res = await servtime.json();
+  setServicTime(res);
+
 }
 
 const onSubmit = async (e)=>{
@@ -78,7 +93,7 @@ const onSubmit = async (e)=>{
     // const user_id= JSON.parse(localStorage.getItem('user'))._id;   //for get logedin userid
     let result = await fetch(process.env.NEXT_PUBLIC_API_URL + `/add_Provided_service`,{
         method: 'post',
-        body:JSON.stringify({customer_id,product_id,p_qty, purchase_date, service_time }),
+        body:JSON.stringify({customer_id, product_id, p_qty, purchase_date, service_time }),
         headers:{
             'Content-type':'application/json',
             // authorization: `bearer ${JSON.parse(localStorage.getItem('usertoken'))}` //for using middleware authontigation
@@ -98,98 +113,78 @@ const onSubmit = async (e)=>{
 
   return (
     <DashLayout>
+    <Box>
+
+    <div className='bg-gradient-to-r items-start from-cyan-400 via-blue-50 to-blue-400 block h-screen justify-center p-1 pt-10 md:flex'>
+      {/* login card */}
+      <div className=" bg-cover bg-image flex flex-col  items-center max-w-screen-lg overflow-hidden rounded-lg shadow-lg text-gray-600 w-full md:flex-row font-sans">
+
+        <Image 
+            priority={true}
+            src={servicetime}
+            alt="login"
+            width={550}
+            height={400}
+        />
+
+        <div className="h-full from-green-300 flex flex-col items-center p-8 w-full md:w-1/2">
+          {/* Welcome */}
+          <div className="flex flex-col items-center space-y-2 pb-0 ">
+            <h1 className="font-medium text-green-400 text-3xl ">Provide New Service</h1>
+            <p className=" text-lg pb-8"> Service Details </p>
+          </div>
 
         <div className="mt-10">
-        <div className="flex flex-col items-center space-y-2  ">
-          <h1 className="font-medium text-green-400 text-3xl pb-4"> Provide New Service </h1>
-        </div>
-
           <form className="flex flex-col items-center space-y-3" method="post">
-            <div className="grid grid-cols-2 gap-8">
-              <div className="label text-right">
-                <label>Customer Name</label>
-              </div>
-              <div className="ibox">
-              <select className="text-black border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-20 py-3 
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={customer_id}  onChange={(e)=>setCust(e.target.value)}>
-                  <option defaultValue>Select Customer</option>
-                 {  Customer.map((customer)=> 
-                  <option className="text-black" value={customer.id}>{customer.customer_name}</option>
-                  ) }
-                </select>
-              </div>
-            </div>
 
-            <div className="grid grid-cols-2 gap-8">
-              <div className="label text-right">
-               <label>Product Name</label>
-              </div>
-              <div className="ibox">
-              <select className="text-black border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-24 py-3 
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={product_id} onChange={(e)=>setPro(e.target.value)}>
-                  <option defaultValue>Select Product</option>
-                 {  Product.map((product)=> 
-                  <option className="text-black" value={product.id}>{product.product_name}</option>
-                  ) }
-                </select>
-              </div>
-            </div>
+            <FormControl fullWidth>
+              <InputLabel id="select">Customer Name</InputLabel>
+              <Select labelId="select"  label="Customer Name" onChange={(e)=>setCust(e.target.value)} >
+                  <MenuItem value=""> <em>None</em> </MenuItem>
+                  {Customer.map(customer => (
+                  <MenuItem key={customer.value} value={customer.id}>{customer.customer_name}</MenuItem>
+                  )) }
+              </Select>
+            </FormControl>
 
+            <FormControl fullWidth>
+              <InputLabel id="select">Product Name</InputLabel>
+              <Select labelId="select" label="Product Name" onChange={(e)=>setPro(e.target.value)} >
+                  <MenuItem value=""> <em>None</em> </MenuItem>
+                  {Product.map(product => (
+                  <MenuItem key={product.value} value={product.id}>{product.product_name}</MenuItem>
+                  )) }
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
+                <TextField id="outlined-basic" label="Product Quantity" variant="outlined" onChange={(e)=>setQty(e.target.value)} />
+            </FormControl>
 
-            <div className="grid grid-cols-2 gap-8">
-              <div className="label text-right ">
-                <label>Service Quantity</label>
-              </div>
-              <div className="ibox">
-              <input className="text-black border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-3 py-3 
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={p_qty} onChange={(e)=>setQty(e.target.value)}
-                  placeholder="Service Quantity." type="text"
-                />
-              </div>
-            </div>
+            <FormControl fullWidth>
+              <TextField type="date"  onChange={(e) => setDate(e.target.value)} />
+            </FormControl>
 
-            <div className="grid grid-cols-2 gap-8">
-              <div className="label text-right">
-                <label>Service Purchase Date</label>
-              </div>
-              <div className="ibox">
-              <input className="text-black  border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-24 py-3 
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={purchase_date} onChange={(e)=>setDate(e.target.value)}
-                  placeholder="Service Purchase Date." type="date"
-                />
-              </div>
-            </div>
+            <FormControl fullWidth>
+              <InputLabel id="select">Service Duration</InputLabel>
+              <Select labelId="select" label="Service Duration" onChange={(e)=>setTime(e.target.value)} >
+              <MenuItem value=""> <em>None</em> </MenuItem>
+                {Servicet.map(servtime => (
+                <MenuItem key={servtime.value} value={servtime.year}>{servtime.service_details}</MenuItem>
+                )) }
+              </Select>
+            </FormControl>        
+            <Button variant="outlined" type="submit" onClick={onSubmit}>Submit</Button>
 
-            <div className="grid grid-cols-2 gap-8">
-              <div className="label text-right">
-              <label>Service Duration</label>
-              </div>
-              <div className="ibox">
-                <select className="text-black border boder-gray-300 outline-none placeholder-gray-400 pl-16 pr-20 py-3 
-                rounded-md transition focus:ring-2 focus:ring-green-400" value={service_time} onChange={(e)=>setTime(e.target.value)}>
-                  <option defaultValue>Select Service Duration</option>
-                 
-                  {/* <option className="text-black" value="0.3">3 Month</option>
-                  <option className="text-black" value="0.6">6 Month</option> */}
-                  <option className="text-black" value="01">1 Year</option>
-                  <option className="text-black" value="02">2 Year</option>
-                  <option className="text-black" value="03">3 Year</option>
-                  <option className="text-black" value="04">4 Year</option>
-                  <option className="text-black" value="05">5 Year</option>
-                </select>
-              </div>
-            </div>
-
-              <button className="bg-green-400 font-medium inline-flex items-center px-10 py-2 rounded-md
-               text-white transition hover:bg-green-500" type="submit" onClick={onSubmit}>
-                Submit
-              </button>
-              <Link href="http://localhost:3000/components/provided_service">Back To List</Link>
-
-           </form>
+            <Link  className="text-green-400" href="http://localhost:3000/components/provided_service" prefetch={true}>Back To List</Link>
+          </form>
+        
         </div>
-
+        </div>
+        </div>
+        </div>
+      </Box>
 
     </DashLayout>
   );
 }
+

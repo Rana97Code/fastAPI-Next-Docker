@@ -1,9 +1,8 @@
-"use client";
+'use client'
 import React, { useState,useEffect }  from "react";
-import Head from 'next/head';
 import Image from "next/image";
 import { FaUser, FaLock, FaFacebookF, FaLinkedinIn, FaTwitter, FaGoogle, FaEyeSlash } from "react-icons/fa";
-import loginimg from "../../../public/img/login.png";
+import loginimg from "/public/img/login.png";
 import { useRouter } from 'next/navigation';
 
 
@@ -20,17 +19,17 @@ export default function Signin() {
     
     const auth= JSON.parse(sessionStorage.getItem('user_email'));
     if(auth){
-        router.push("./components/dashboard")
+        router.push("../../components/dashboard")
     }
   },[])
 
   const handleSignin = async (event)=>{
      
       // event.preventDefault();
-    const formData = {
-      user_email,
-      user_password,
-    };
+    // const formData = {
+    //   user_email,
+    //   user_password,
+    // };
     // console.warn(formData)
 
       let result = await fetch(process.env.NEXT_PUBLIC_API_URL+`/signin`,{
@@ -51,9 +50,9 @@ export default function Signin() {
 
           sessionStorage.setItem("access_token",JSON.stringify(data.access_token)) //store data in local storage
           sessionStorage.setItem("user_email",JSON.stringify(data.user_email)) //store data in local storage
-          router.push("../components/dashboard")
+          router.push("../../components/dashboard")
       }else{
-          alert("Please Sign In")
+        router.push("/")
       }
       
   }
@@ -63,8 +62,14 @@ export default function Signin() {
         <div className=" bg-cover bg-image flex flex-col items-center max-w-screen-lg overflow-hidden rounded-lg shadow-lg text-gray-600 w-full md:flex-row font-sans">
 
 
-          <Image src={loginimg}  alt="login" width="550" height="400">
-         </Image>
+          <Image 
+              priority={true}
+              src={loginimg}
+              alt="login"
+              width={550}
+              height={400}
+          />
+        
 
 
           {/* Form */}

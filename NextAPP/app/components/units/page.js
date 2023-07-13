@@ -37,7 +37,7 @@ const getUnit = async () => {
             <div className=" place-self-end ">     
             <button className="bg-green-400 font-medium  px-7 py-2 rounded-md ml-220
                 text-white transition hover:bg-green-500" type="submit" >
-                  <Link href="http://localhost:3000/components/units/add">Add Unit</Link>
+                  <Link href="http://localhost:3000/components/units/add" prefetch={true}>Add Unit</Link>
             </button>
 
           </div>

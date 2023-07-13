@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Image from "next/image";
-import revenue from "../../../public/img/cardicon/revenue.png";
-import order from "../../../public/img/cardicon/order.png";
-import sale from "../../../public/img/cardicon/sale.png";
-import user from "../../../public/img/cardicon/user.png";
+import revenue from "/public/img/cardicon/revenue.png";
+import order from "/public/img/cardicon/order.png";
+import sale from "/public/img/cardicon/sale.png";
+import user from "/public/img/cardicon/user.png";
 
 const Dashboardcard = () => {
   return (
@@ -22,9 +22,11 @@ const Dashboardcard = () => {
           <span className='text-green-700 text-lg p-2'>+11%</span>
           <span className='my-4'>
             <Image
+              priority={true}
               src={revenue}
-              alt="revenue" width="65" height="65">
-            </Image>
+              alt="revenue" width="65" height="65"
+              
+          />
           </span>
         </p>
       </div>
@@ -39,9 +41,10 @@ const Dashboardcard = () => {
           <span className='text-green-700 text-lg p-2'>+11%</span>
           <span className='my-4'>
             <Image
+              priority={true}
               src={order}
-              alt="order" width="65" height="65">
-            </Image>
+              alt="order" width="65" height="65"
+             />
           </span>
         </p>
       </div>
@@ -56,10 +59,11 @@ const Dashboardcard = () => {
           <span className='text-green-700 text-lg p-2'>+11%</span>
           <span className='my-4'>
             <Image
+              priority={true}
               src={sale}
-              alt="sale" width="65" height="65">
-            </Image>
-          </span>
+              alt="sale" width="65" height="65"
+            />
+           </span>
         </p>
       </div>
 
@@ -73,9 +77,11 @@ const Dashboardcard = () => {
           <span className='text-green-700 text-lg p-2'>+11%</span>
           <span className='my-4'>
             <Image
+              priority={true}
               src={user}
-              alt="user" width="65" height="65">
-            </Image>
+              alt="user" width="65" height="65" 
+            />
+           
           </span>
         </p>
       </div>

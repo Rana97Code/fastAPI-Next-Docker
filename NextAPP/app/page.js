@@ -1,12 +1,14 @@
 "use client";
-import Head from 'next/head';
+import Head from 'next/head'
 
 import PrivateRoute from './user/preventRoute'
 
-export default function Home() {
+export default async function Home() {
   return (
-
-    <PrivateRoute />
-
+    <>
+    <main>
+      <PrivateRoute />
+    </main>
+    </>
   )
 }
